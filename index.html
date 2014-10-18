@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Yucca</title>
+
+    <meta name="author" content="Rémi JANOT">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style>
+        .red {
+            color:red;
+        }
+        .blue {
+            color: #13daec;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>YUCCA</h1>
+                <h1>ORM</h1>
+            </section>
+            <section>
+                <h2>whoami</h2>
+                <div>
+                    <img height="200" src="img/_MG_5722.JPG">
+                    <br>
+                </div>
+                <div>Rémi JANOT</div>
+                <div>
+                    <br/>
+                </div>
+                <div>
+                    <table style="display: inline-block">
+                        <tr>
+                            <td>
+                                Lead dev @ <br/>
+                                <a href="http://ysance.com/" target="_blank"><img height="200" src="img/img-logo-ysance-white.png"></a>
+                            </td>
+
+                            <td>
+                                <div class="fragment" data-fragment-index="1">
+                                    CTO @ <br/>
+                                    <a href="http://www.wheeliz.com/" target="_blank"><img height="200" src="img/img-logo-wheeliz-short.png"></a>
+                                    <a href="http://www.douxfoyer.fr/" target="_blank"><img height="200" src="img/img-logo-fdf-pict.png"></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <section>
+                <h2>ORM</h2>
+                <div>
+                    <div>
+                        <img src="img/Wikipedia-logo-v2-fr.png">
+                        <br>
+                    </div>
+                    <div>
+                        ORM in computer science is a programming technique for converting data between incompatible type systems in object-oriented programming languages. This creates, in effect, a "virtual object database" that can be used from within the programming language.
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h2>Why an ORM ?</h2>
+                <div>
+                <br>
+                </div>
+                <div>
+                <br>
+                </div>
+                <div>
+                    <ul>
+                        <li class="fragment" data-fragment-index="0">Avoid data array manipulation</li>
+                        <li class="fragment" data-fragment-index="1">DRY</li>
+                        <li class="fragment" data-fragment-index="2">Ease use of mocks for unit tests</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h2>Some ORM</h2>
+                <div>
+                    <br>
+                </div>
+                <div>
+                    <ul>
+                    <li class="fragment" data-fragment-index="0">Doctrine</li>
+                    <li class="fragment" data-fragment-index="1">Propel</li>
+                    <li class="fragment" data-fragment-index="2">Eloquent (Laravel)</li>
+                    <li class="fragment" data-fragment-index="3">Other Open Source</li>
+                    <li class="fragment" data-fragment-index="4">Home-made</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h2>Why I don't like Home-made ORM</h2>
+                <div><img src="img/remove.png"></div>
+                <ul>
+                    <li>Home-made ! Nothing else to say</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Why love Doctrine</h2>
+                <div><img src="img/favourites.png"></div>
+                <ul>
+                    <li>Well integrated in Symfony2 and provided bundles</li>
+                    <li>Documentation / Tests / Communities</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Why I don't like Doctrine</h2>
+                <div>
+                    <div class="red">
+                        [Syntax Error] line 0, col 203: Error: <br/>Expected Doctrine\ORM\Query\Lexer::T_WITH, got 'ON'
+                    </div>
+                    <div><br/></div>
+                    Strange errors : In DQL we use WITH and not ON like in common SQL
+                </div>
+            </section>
+            <section>
+                <h2>Why I don't like Doctrine</h2>
+                <div>
+                    <div class="red">
+                        [Syntax Error] line 0, col 88: Error: <br/>Expected Doctrine\ORM\Query\Lexer::T_DOT, got 'A'
+                    </div>
+                    <div><br/></div>
+                    Strange errors : We have to link in both ways: A to B and B to A
+                </div>
+            </section>
+            <section>
+                <h2>Why I don't like Doctrine</h2>
+                <div>
+                    <div class="red">
+                        SELECT c0_.number AS number0, c0_.code_val AS code_val1, c0_.name AS name2, c0_.logo AS logo3, c0_.state AS state4, c0_.email AS email5, c0_.country AS country6, c0_.website AS website7, c0_.adress AS adress8, c0_.description AS description9, c0_.president AS president10, c0_.id AS id11 FROM company c0_ WHERE c0_.id = '1' AND c0_.state = 1
+                    </div>
+                    <div><br/></div>
+                    Query hard to read in logs
+                </div>
+            </section>
+            <section>
+                <h2>Why I don't like Doctrine</h2>
+                <ul>
+                    <li>Entity too (much) close to the DB schema</li>
+                    <li>Caching : hard to invalidate</li>
+                    <li>Work only with SGBDR / mongo</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Rewind ?</h2>
+            </section>
+            <section>
+                <h2>What if we have multiple data sources for the same entity ?</h2>
+                <div>a user can get his data from :</div>
+                <ul>
+                    <li>the <code class="blue">user</code></a> table (1 line = 1 entity)</li>
+                    <li>the <code class="blue">user_param</code> table (1 line = 1 entity field)</li>
+                    <li>counters from redis or memcache</li>
+                    <li>an API (Facebook, Google, ...)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>What if we have multiple handlers for the same source ?</h2>
+                <div>We can get the same datas :</div>
+                <ul>
+                    <li>from APC</li>
+                    <li>from Memcache</li>
+                    <li>either from the <code class="blue">config</code> table and save back in Memcache and APC</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>What if no sharding, it's sharding with only one backend ?</h2>
+
+                <ul>
+                    <li>We could have an ORM ready for growing production needs</li>
+                </ul>
+            </section>
+            <section>
+                <h2>So :</h2>
+                <img src="img/schema.png">
+            </section>
+
+            <section>
+                <h2>Configuration - Connections</h2>
+                <div>
+                    <pre><code>
+#app/config/yucca.yml
+yucca:
+    #DB connections
+    connections:
+        default:
+            type: doctrine
+            options:
+                driver:   %database_default_driver%
+                host:     %database_default_host%
+                port:     %database_default_port%
+                dbname:   %database_default_name%
+                user:     %database_default_user%
+                password: %database_default_password%
+                charset:  UTF8
+        memcache_general:
+            type: memcache
+            options:
+                prefix: %memcache_general_prefix%
+                servers:
+                    - {port: %memcache_general_port%, host: %memcache_general_host%}
+        message_1:
+            # ...
+
+        message_2:
+            # ...
+
+                    </code></pre>
+                </div>
+            </section>
+
+            <section>
+                <h2>Configuration - Schema Sharding</h2>
+                <div>
+                    <pre><code>
+#app/config/yucca.yml
+yucca:
+    #DB Schema
+    schema:
+        user:
+            sharding_strategy: modulo
+            shards:
+                - default
+        user_params:
+            sharding_strategy: modulo
+            shards:
+                - default
+        messaages:
+            sharding_strategy: modulo
+            shards:
+                - message_1
+                - message_2
+                    </code></pre>
+                </div>
+            </section>
+
+            <section>
+                <h2>Configuration - Handlers</h2>
+                <div>
+                    <pre><code>
+#app/config/yucca.yml
+yucca:
+    #Sources
+    sources:
+        user:
+            default_params:
+                fields: { id: 'identifier', created_at: {type: 'datetime'}, updated_at: {type: 'datetime'}, email: ~, password: ~, salt: ~ }
+                handlers:
+                    -
+                        type: database_single_row
+                        table_name: user
+        user_params:
+            default_params:
+                fields: {id: 'identifier', fbuid: ~, twitteruid: ~}
+                name_field: param_name
+                value_field: param_value
+                mapping: {id: user_id}
+                handlers:
+                    -
+                        type: database_multiple_row
+                        table_name: user_params
+                    </code></pre>
+                </div>
+            </section>
+
+            <section>
+                <h2>Configuration - Handlers</h2>
+                <div>
+                    <pre><code>
+
+location:
+    default_params:
+        fields: { id: {type: 'identifier'}, latitude: ~, longitude: ~, bounds: {type: 'json'}, streetNumber: ~, streetName: ~, cityDistrict: ~, city: ~, zipcode: ~, county: ~, countyCode: ~, region: ~, regionCode: ~, country: ~, countryCode: ~, timezone: ~, createdAt: {type: 'datetime'} }
+        handlers:
+            -
+                type: memcache
+                connection_name: memcache
+            -
+                type: database_single_row
+                table_name: location
+            -
+                type: geocoding
+                    </code></pre>
+                </div>
+            </section>
+
+            <section>
+                <h2>Configuration - Entity</h2>
+                <div>
+                    <pre><code>
+#app/config/yucca.yml
+yucca:
+    #Mapping object / Sources
+    mapping:
+        MyProject\Model\User:
+            mapper_class_name: ~
+            properties:
+                state:
+                    field: state_id
+                company:
+                    field: company_id
+            sources:
+                - user
+                - user_param
+                    </code></pre>
+                </div>
+            </section>
+
+            <section>
+                <h2>Use case</h2>
+                <div>
+                    <pre><code>
+<div class="fragment" data-fragment-index="0">
+$this->get('yucca.entity_manager')->load('YuccaDemo\Model\User', $user_id);
+</div>
+<div class="fragment" data-fragment-index="1">
+try {
+    $user->ensureExist();
+} catch (\Yucca\Component\Source\Exception\NoDataException $e) {
+    throw $e;
+}
+</div>
+
+                    </code></pre>
+                </div>
+            </section>
+
+            <section>
+                <h2>How do i search when I don't have the user id ?</h2>
+                <div>
+                    <pre><code>
+/**
+* @var $selector \MyProject\Selector\User
+*/
+$selector = $this->container->get('yucca.selector_manager')->getSelector('MyProject\Selector\User');
+
+$selector->addEmailCriteria($email);
+
+switch($selector->count()) {
+    case 1: {
+        return $this->yuccaEntityManager->load('MyProject\Model\User',$selector->current());
+    }
+    case 0: {
+        throw new \Exception('No user found');
+    }
+    default: {
+        throw new \Exception('Multiple users found');
+    }
+}
+                    </code></pre>
+                </div>
+            </section>
+
+            <section>
+                <h2>What is the selector ?</h2>
+                <div>
+                    <pre><code>
+&lt;?php
+use \Yucca\Component\Selector\SelectorAbstract;
+use Yucca\Component\Selector\Source\SelectorSourceInterface;
+
+class User extends SelectorAbstract {
+    public function __construct(SelectorSourceInterface $source = null){
+        parent::__construct($source);
+        $this->options = array(
+            SelectorSourceInterface::ID_FIELD => array('u.id'),
+            SelectorSourceInterface::SHARDING_KEY_FIELD => null,
+            SelectorSourceInterface::TABLE => array(
+                'user'=>array('alias'=>'u'),
+            ),
+            SelectorSourceInterface::SELECTOR_NAME => __CLASS__,
+        );
+    }
+
+    /**
+     * @param string $criteria
+     * @return \MyProject\Selector\User
+     */
+    public function addEmailCriteria($criteria){
+        $this->criterias['u.email'][] = $criteria;
+        return $this;
+    }
+}
+
+
+                    </code></pre>
+                </div>
+            </section>
+
+            <section>
+                <h2>And in SQL ?</h2>
+                <div>
+                    <pre><code>SELECT u.id FROM user AS u WHERE u.email = ?</code></pre>
+                    <pre><code>SELECT u.id FROM user AS u WHERE u.email IN (?, ?)</code></pre>
+                    <br/>
+                    <pre><code>SELECT * FROM user WHERE id = ?</code></pre>
+                </div>
+            </section>
+
+
+            <section>
+                <h2>What if my selector returns many ids</h2>
+                <div>
+                    <pre><code>
+/** @var $selector \MyProject\Selector\User */
+$selector = $this->container->get('yucca.selector_manager')->getSelector('MyProject\Selector\User');
+
+/** @var $iterator \Yucca\Component\Iterator\Iterator | \MyProject\Model\User[] */
+$iterator = new \Yucca\Component\Iterator\Iterator(
+    $selector,
+    $this->container->get('yucca.entity_manager'),
+    '\MyProject\Model\User'
+);
+
+foreach($iterator as $user) {
+    var_dump($user->getEmail());
+}
+                    </code></pre>
+                </div>
+            </section>
+
+            <section>
+                <div>
+                    <img src="img/questions.png" />
+                </div>
+            </section>
+            <section>
+                <h2>Liens</h2>
+                <div>
+                    <br>
+                </div>
+                <div>
+                    <ul>
+                        <li><a href="https://github.com/rjanot/yucca" target="_blank">Yucca</a></li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            width: '100%',
+
+            theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+
+</body>
+</html>
